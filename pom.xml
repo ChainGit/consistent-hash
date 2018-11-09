@@ -12,7 +12,7 @@
 
     <version>0.0.1-SNAPSHOT</version>
 
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <!--http://maven.apache.org/plugins/-->
