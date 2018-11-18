@@ -4,13 +4,25 @@
        xsi:schemaLocation=
                "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 客户端异步线程池 -->
+    <!-- 模拟客户端 异步线程池 -->
     <bean id="clientThreadPoolTaskExecutor"
           class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="corePoolSize" value="100"/>
-        <property name="maxPoolSize" value="300"/>
-        <property name="queueCapacity" value="200"/>
-        <property name="keepAliveSeconds" value="300"/>
+        <property name="corePoolSize" value="16"/>
+        <property name="maxPoolSize" value="${consistent.hash.client.maxSize}"/>
+        <property name="queueCapacity" value="32"/>
+        <property name="keepAliveSeconds" value="180"/>
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
+        </property>
+    </bean>
+
+    <!-- 模拟分布式缓存 异步线程池 -->
+    <bean id="cacheThreadPoolTaskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="8"/>
+        <property name="maxPoolSize" value="${consistent.hash.cache.circleMaxSize}"/>
+        <property name="queueCapacity" value="32"/>
+        <property name="keepAliveSeconds" value="180"/>
         <property name="rejectedExecutionHandler">
             <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
         </property>

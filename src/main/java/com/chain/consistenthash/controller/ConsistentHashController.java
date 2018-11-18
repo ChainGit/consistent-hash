@@ -11,7 +11,4 @@ import org.springframework.stereotype.Controller;
 @Controller("/api/consistent-hash/")
 public class ConsistentHashController {
 
-    static {
-        log.error("error");
-    }
 }
